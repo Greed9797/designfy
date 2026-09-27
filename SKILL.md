@@ -144,6 +144,10 @@ imagem gerada por IA. Feedback vira iteração; aprovação explícita libera a 
 - **Shopify:** [references/shopify.md](references/shopify.md) — arquitetura de seções próprias,
   dados via Admin API, tema com mapa, checkout/obrigado/pós-compra por plano, e as armadilhas que
   fazem o push "dar certo" sem subir nada.
+- **Outra plataforma (VTEX, Nuvemshop, headless):** as Fases 0–4 e 6–7 valem iguais; a
+  implementação segue o sistema de tema da plataforma (VTEX IO: store-theme e blocos; Nuvemshop:
+  tema da loja) e costuma ser da agência que mantém a loja. Levante isso na Fase 0 e não prometa
+  recurso de Shopify (seções, apps, extensões de checkout) em loja que não é Shopify.
 - **Site estático / preview (Vercel etc.):** mesmo design system em `:root`, HTML semântico,
   JS mínimo. Formulário sem destino definido não finge que envia: ou liga num destino aprovado,
   ou abre o WhatsApp com a mensagem preenchida.
