@@ -136,6 +136,19 @@ Oferta de desconto na intenção de saída é possível, mas só com cupom real 
   50, depois 59, em segundos) é gerador aleatório: **não use**.
 - Escassez só com estoque real da variante ("Últimas 3 unidades" lido de `inventory_quantity`) e
   prazo só com data de fim real da campanha.
+- **Número gerado pelo tema é contador falso**, mesmo quando o tema é seu. Barra de estoque que
+  sorteia entre um mínimo e um máximo configurados, timer que reinicia a cada visita, "vendidos
+  hoje" digitado no editor: tudo isso existe em tema brasileiro pronto. Antes de ligar um bloco
+  de urgência, abra o código e confira **de onde vem o número**; se não for estoque, pedido ou
+  data real, o bloco fica desligado.
+- **Notificação de venda** ("Fulana de SP comprou há 5 min"): o tema (Liquid) não enxerga
+  pedidos de outros clientes, então toda notificação montada só no tema é inventada. A versão
+  real exige app com leitura de pedidos, e mesmo assim mostre **agregado e anônimo** ("12 pedidos
+  hoje"), nunca nome ou cidade de um comprador sem consentimento (LGPD). Sem app, o espaço vai para
+  uma mensagem que não afirma venda (frete, troca, prazo).
+- **Parcelas e descontos de pagamento calculados no tema** (juros médios, % de PIX, % de
+  cashback digitados nas configurações) precisam bater com o gateway. Confira uma PDP contra o
+  checkout real antes de publicar; divergência é preço anunciado que não é cobrado.
 - Microtexto legal no banner de oferta: "cupom válido por tempo limitado, para peças selecionadas,
   não cumulativo" (Amaro, Boca Rosa). Condição que muda o preço não pode ficar só no regulamento.
 
@@ -156,3 +169,6 @@ para quem não vende.
 - Barra de frete: Liquid/JS lendo `/cart.js`, limite num setting do tema (não chumbado).
 - Brinde automático, preço por faixa complexa, bump no checkout, pós-compra de 1 clique: exigem
   Functions/extensão de checkout ou app (Rebuy na Gymshark e na Bold, ReConvert na Woly). Declare a dependência na lista "Validar com o cliente" e desenhe o estado sem o app.
+
+Checkout, página de obrigado, pós-compra e e-mails: ver [shopify.md](shopify.md), seção
+"Checkout, página de obrigado e pós-compra".

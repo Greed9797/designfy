@@ -29,6 +29,8 @@ references/qa.md
 references/conversao.md         upsell, cross-sell, downsell, order bump, frete, brinde, cashback
 references/banners.md           tipos de banner, medidas, arte mobile, geração com IA
 references/lojas-referencia.md  o que emprestar de 19 lojas analisadas (2026-09)
+references/mobile.md            primeira dobra, barra de compra fixa, menu inferior, pop-ups
+evals/cenarios.md             8 pedidos de teste para conferir se as regras pegam
 scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
 scripts/extrair_referencia.py captura de loja de referência: estrutura, tokens, mecânicas, apps
 ```

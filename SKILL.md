@@ -80,6 +80,8 @@ Siga as fases na ordem. Cada uma tem um entregável que o usuário consegue apro
   ("fica feio") não convence cliente nenhum; "texto branco no laranja dá 2,98:1, reprova AA" convence.
 - Mapeie o que a plataforma/tema já faz antes de desenhar algo que exige código novo
   (ex.: "avise-me quando voltar ao estoque" precisa de app; o formulário nativo não faz).
+  Tema com mapa gerado do código (`docs/MAPA-DO-TEMA.md`, `AGENTS.md`): leia-o aqui e siga
+  "Tema com mapa" em [references/shopify.md](references/shopify.md).
 - Liste as mecânicas de venda que **rodam de verdade** hoje: regras de desconto, frete grátis,
   cashback, brinde, assinatura, app de recomendação, o que o checkout aceita (bump, pós-compra).
   É isso que o design pode mostrar. Mapa das mecânicas em
@@ -113,7 +115,7 @@ Lista mínima (desktop 1440 + mobile 390; claro e escuro se o escuro fizer parte
 |---|---|
 | Home | header em repouso e rolado, hero (desktop e arte mobile própria), vitrine, bloco de marca |
 | Catálogo | com filtros abertos (mobile), vazio, paginação ou "carregar mais" |
-| Produto (PDP) | variante selecionada, esgotado/avise-me, guia de medidas quando couber |
+| Produto (PDP) | variante selecionada, esgotado/avise-me, guia de medidas quando couber, mobile rolado com barra de compra fixa |
 | Sacola (drawer) | vazia, com itens, barra de frete (faltando e atingido), recomendação, frete calculado, erro de CEP |
 | Busca | sugestões, sem resultado |
 | Páginas do rodapé | ajuda (medidas, trocas, contato) e políticas com texto real |
@@ -128,6 +130,8 @@ arquivo, a receita de modo escuro e as armadilhas da Plugin API estão em
 [references/figma.md](references/figma.md). Banners (tipos, medidas, arte mobile, geração com IA)
 em [references/banners.md](references/banners.md); onde entra cada mecânica de venda (compre junto,
 kits, brinde, cashback, recomendação na sacola) em [references/conversao.md](references/conversao.md).
+O que muda na tela de 390 (primeira dobra da PDP, barra fixa, menu inferior, pop-ups que cobrem a
+tela) em [references/mobile.md](references/mobile.md).
 
 ### Fase 4 — Revisão com o cliente
 
@@ -138,7 +142,8 @@ imagem gerada por IA. Feedback vira iteração; aprovação explícita libera a 
 ### Fase 5 — Implementação
 
 - **Shopify:** [references/shopify.md](references/shopify.md) — arquitetura de seções próprias,
-  dados via Admin API, e as armadilhas que fazem o push "dar certo" sem subir nada.
+  dados via Admin API, tema com mapa, checkout/obrigado/pós-compra por plano, e as armadilhas que
+  fazem o push "dar certo" sem subir nada.
 - **Site estático / preview (Vercel etc.):** mesmo design system em `:root`, HTML semântico,
   JS mínimo. Formulário sem destino definido não finge que envia: ou liga num destino aprovado,
   ou abre o WhatsApp com a mensagem preenchida.

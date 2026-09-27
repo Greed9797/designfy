@@ -58,7 +58,40 @@
   desfaça efeitos observando o atributo `open` com `MutationObserver`.
 - `data-sizes` colide com lazysizes; use outro nome.
 
-## Checkout externo
+## Tema com mapa
 
-Se o checkout é de terceiro, ele pode ignorar o desconto do carrinho e aplicar regras próprias.
-Meça o valor final pelo endpoint do checkout (sem criar pedido) antes de exibir economia na sacola.
+Se o tema traz um mapa gerado do código (ex.: `docs/MAPA-DO-TEMA.md`, `AGENTS.md`), ele manda
+sobre as regras genéricas deste arquivo:
+
+1. Leia o mapa e o `AGENTS.md` **antes da Fase 3**. Para cada componente do Figma (barra de
+   frete, compre junto, kit, barra de anúncio com cupom, menu inferior…), anote a section, o
+   bloco e os settings que já o implementam. Nomeie o frame do Figma com esse nome.
+2. Só desenhe componente sem par no mapa se ele for necessário; ele vira section nova no padrão
+   do tema, não CSS por cima.
+3. Antes de ligar um bloco de urgência, prova ou pagamento, leia o código dele (ver
+   [conversao.md](conversao.md), "Prova e urgência"). Tema pronto costuma ter contador sorteado.
+4. Rode os gates do próprio tema (validador, selfcheck, `shopify theme check`, verificação do
+   mapa) antes de dizer "pronto".
+
+## Checkout, página de obrigado e pós-compra
+
+A análise das 19 lojas parou na sacola: nenhum checkout foi aberto nem pedido criado. O que
+segue é a regra da plataforma, não padrão observado. **Confira a documentação da Shopify na data
+do projeto**; os limites por plano mudaram várias vezes desde 2023.
+
+- **Checkout nativo:** marca (logo, cores, fontes, botões) pelo editor de checkout. Bloco ou campo
+  novo nas etapas de informação, entrega e pagamento (order bump, seguro de envio, brinde) é
+  extensão de checkout e depende do plano. Não desenhe checkout customizado sem confirmar o plano;
+  onde não der, o bump vai para o "compre junto" da PDP ou para a sacola.
+- **Página de obrigado e status do pedido:** personalizáveis por extensão de app. Lugar de
+  cashback que o pedido rendeu, cupom da próxima compra, convite para avaliar e para o programa.
+- **Oferta pós-compra de 1 clique** (entre o pagamento e o obrigado): só por app com extensão de
+  pós-compra (Woly tem o ReConvert). Um item, preço visível, "Adicionar ao pedido" e "Não,
+  obrigado" com o mesmo peso.
+- **Checkout externo brasileiro** (Yampi, Appmax, CartPanda): o layout mora no painel do checkout,
+  não no tema. O Figma entrega tokens (logo, cor, fonte), textos e a lista de bumps/brindes que o
+  painel suporta. Esse checkout pode ignorar o desconto do carrinho e aplicar regras próprias: meça
+  o valor final pelo endpoint dele (sem criar pedido) antes de exibir economia na sacola.
+- **E-mails transacionais e carrinho abandonado:** templates de notificação da Shopify (ou da
+  ferramenta de e-mail). Mesmo logo, cor de acento e tom de voz da loja; foto do item, preço, um
+  botão. Cupom no e-mail de abandono só se a regra existir no desconto.
