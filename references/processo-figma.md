@@ -1,6 +1,7 @@
 # Processo de desenho no Figma — o passo a passo exato
 
-Leia este arquivo **inteiro** antes da primeira escrita no Figma. Não é sugestão de estilo: é a
+Vale para **qualquer tela no Figma**: loja, landing page, dashboard, app. Leia este arquivo
+**inteiro** antes da primeira escrita no Figma. Não é sugestão de estilo: é a
 sequência que produz tela de estúdio. Pular etapa é o que faz o resultado parecer template de 2014.
 
 A regra que resume tudo: **montar, não desenhar.** Tela boa sai de peças que já existem no arquivo
@@ -20,6 +21,19 @@ No modo B há duas armadilhas que sozinhas explicam a maior parte do resultado f
 `create_text` cria o texto **sempre em Inter**, sem estilo de texto, e `set_fill_color` grava cor
 crua, sem variável. Por isso no modo B quase nada se cria do zero: clona-se um nó que já tem a
 fonte, o estilo e a cor certos, e só se troca o conteúdo.
+
+Antes de usar o modo B, confira a ferramenta:
+
+- O plugin aberto no Figma precisa ser o do repositório local do MCP (Figma › Plugins ›
+  Development › Import plugin from manifest › `src/cursor_mcp_plugin/manifest.json`), não o da
+  Community, que fica para trás. Sinal de plugin velho: o servidor lista `set_image_fill`, mas o
+  plugin responde que o comando não existe.
+- Na versão original do plugin, alfa `0` vira `1`: pedir fundo "transparente" (`a: 0`) pinta uma
+  caixa opaca, e `create_frame` sem cor nasce **branco**. Nunca simule transparência com cor;
+  contêiner de layout não tem fundo (ver regra 4.12). A versão corrigida respeita `a: 0` e cria
+  frame sem fundo; teste uma vez com um frame descartável antes de confiar.
+- A versão corrigida de `create_text` aceita `fontFamily` e `fontStyle` (nome exato do estilo,
+  ex.: `"Semi Bold"`) e dá erro se a fonte não existe, em vez de cair em Inter.
 
 ## 1. Portão de descoberta (só leitura, antes de qualquer escrita)
 
@@ -93,6 +107,18 @@ Regras de layout, que valem nos dois modos:
 11. **Filho de instância não aceita `resize`, `x` nem `appendChild`.** Se a instância precisa
     esticar, o erro está no componente principal (filho FIXED que devia ser FILL): corrija o
     principal e todas as instâncias se ajustam. Não desanexe instância para contornar.
+12. **Contêiner de layout não tem fundo.** Só tem cor o que é superfície de verdade (página,
+    card, botão, barra). Linha, coluna e grupo de texto ficam com `fills = []`. Caixa preta ou
+    branca atrás de título, link ou item de menu é sempre este erro.
+13. **Nada escapa do pai.** Soma das larguras fixas + gaps + padding ≤ largura do pai. Texto de
+    tamanho variável (nome, e-mail, valor) fica HUG ou FILL, nunca com largura fixa curta
+    ("Jimmy Adsc…"). Nada de posição absoluta para "encaixar" selo ou badge na borda.
+14. **Nenhuma casca vazia.** Termine uma seção (conteúdo, dado, estado) antes de abrir a
+    próxima. Card, coluna ou gráfico sem conteúdo não existe na tela; se falta dado, anote em
+    "Validar com o cliente" em vez de deixar a caixa.
+15. **Ícone vem de biblioteca.** Componente de ícone já no arquivo, ou SVG/PNG de um conjunto
+    real (Lucide, Phosphor) posto com `set_image_fill` ou pelo script. Nunca emoji, nunca ícone
+    improvisado com quadradinhos e barras: ele denuncia a tela de longe.
 
 ### 4A. Modo script
 
@@ -158,7 +184,8 @@ return { criados, slot: SLOT };
    divisória. Esses são os moldes.
 2. **Texto novo = `clone_node` de um texto do kit** + `set_parent` no lugar certo +
    `set_text_content`. Várias trocas de uma vez: `set_multiple_text_contents`.
-   Não use `create_text`: ele sai em Inter e sem estilo.
+   `create_text` só quando não há texto para clonar, e sempre com `fontFamily` e `fontStyle` da
+   marca; sem esses dois ele sai em Inter.
 3. **Peça repetida = `create_component_instance`** (id local ou key publicada) +
    `set_instance_overrides` ou `set_text_content` nos textos da instância.
 4. **Contêiner novo**: `create_frame` + `set_layout_mode` + `set_padding` + `set_item_spacing` +
@@ -184,9 +211,16 @@ procure, nesta ordem:
 - [ ] Elementos colados sem respiro, ou buracos enormes porque um filho ficou FIXED.
 - [ ] Bordas das seções desalinhadas (cada seção com uma margem diferente).
 - [ ] Contraste: texto sobre o acento, texto cinza-claro sobre branco.
-- [ ] Hierarquia: dá para achar em 2 segundos o nome, o preço e o botão de compra?
+- [ ] Caixa de fundo sobrando atrás de texto, link ou item de menu (regra 4.12).
+- [ ] Card, coluna ou área vazia (regra 4.14).
+- [ ] Elemento cortado pela borda do pai ou flutuando solto (regra 4.13).
+- [ ] Hierarquia: dá para achar em 2 segundos o que importa (numa loja: nome, preço, botão de
+      compra; num dashboard: o número principal e o alerta)?
 
 Corrigiu, tire **um** print de confirmação e pare. Polir sem fim também é defeito.
+
+O relatório ao usuário descreve **só o que o print mostra**. Chamar de "alta fidelidade" ou
+"completo" uma tela com cards vazios é pior que a tela feia: tira do usuário o motivo para olhar.
 
 ## 6. Uma página validada, depois em lote
 
@@ -232,3 +266,7 @@ Responda sim a tudo, com o print na mão:
 | Tela pela metade e duplicatas | um script gigante repetido às cegas | 4A |
 | Mobile ilegível | desktop encolhido para 390 | 7 |
 | Defeito visível entregue | ninguém olhou o print | 5 |
+| Caixas pretas ou brancas atrás de textos | contêiner com fundo; "transparente" com alfa 0 virou opaco | 0, 4.12 |
+| Card direito cortado, nome truncado | larguras fixas somando mais que o pai | 4.13 |
+| Metade dos cards vazios e relatório dizendo "completo" | cascas antes do conteúdo; relatório sem print | 4.14, 5 |
+| Ícones de quadradinhos, emoji | sem biblioteca de ícones | 4.15 |

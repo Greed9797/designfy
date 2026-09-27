@@ -10,7 +10,9 @@ description: >
   estático, e verificação com evidência antes de entregar. Use sempre que o pedido envolver loja,
   e-commerce, Shopify, tema, vitrine, PDP, página de produto, coleção, catálogo, carrinho, checkout,
   redesign de loja, "clonar a estrutura de uma loja de referência", ou design de loja no Figma,
-  mesmo que o usuário não diga "guia" nem "design system".
+  mesmo que o usuário não diga "guia" nem "design system". O passo a passo de Figma
+  (references/processo-figma.md) também vale para qualquer tela no Figma: landing page,
+  dashboard, app.
 ---
 
 # Guia de design para e-commerce
