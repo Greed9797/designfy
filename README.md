@@ -26,7 +26,11 @@ references/figma.md
 references/processo-figma.md    passo a passo de montagem no Figma (obrigatório para desenhar)
 references/shopify.md
 references/qa.md
+references/conversao.md         upsell, cross-sell, downsell, order bump, frete, brinde, cashback
+references/banners.md           tipos de banner, medidas, arte mobile, geração com IA
+references/lojas-referencia.md  o que emprestar de 19 lojas analisadas (2026-09)
 scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
+scripts/extrair_referencia.py captura de loja de referência: estrutura, tokens, mecânicas, apps
 ```
 
 ## Adaptadores
@@ -41,4 +45,5 @@ scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
 | Qualquer outro | instrução de sistema: "Siga SKILL.md; leia references/<x>.md quando o fluxo mandar." |
 
 Em chat sem acesso a arquivos, o mínimo que mantém a qualidade é `SKILL.md` + `paginas.md` +
-`design-system.md` (e `processo-figma.md` se houver Figma). As partes de Figma, Shopify e QA só fazem sentido para agente com ferramentas.
+`design-system.md` (e `processo-figma.md` se houver Figma; `conversao.md` e `banners.md` quando o
+pedido for de venda ou de campanha). As partes de Figma, Shopify e QA só fazem sentido para agente com ferramentas.

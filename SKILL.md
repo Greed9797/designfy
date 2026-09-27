@@ -10,6 +10,8 @@ description: >
   estático, e verificação com evidência antes de entregar. Use sempre que o pedido envolver loja,
   e-commerce, Shopify, tema, vitrine, PDP, página de produto, coleção, catálogo, carrinho, checkout,
   redesign de loja, "clonar a estrutura de uma loja de referência", ou design de loja no Figma,
+  e também para upsell, cross-sell, downsell, order bump, kit/quantidade com desconto, barra de
+  frete grátis, brinde por faixa, cashback, assinatura e banners (hero, promoção, coleção),
   mesmo que o usuário não diga "guia" nem "design system". O passo a passo de Figma
   (references/processo-figma.md) também vale para qualquer tela no Figma: landing page,
   dashboard, app.
@@ -28,8 +30,10 @@ A estética sai do nicho, da marca e das referências. O processo, as regras de 
 de acabamento são os mesmos em qualquer loja.
 
 Ele nasceu de lojas reais: streetwear, skate shop, cactos colecionáveis, luvas de
-luta, máquinas industriais B2B, marca de roupas com checkout externo. O que se repetiu entre elas
-virou regra aqui; o que foi específico de uma ficou de fora.
+luta, máquinas industriais B2B, marca de roupas com checkout externo. Em 2026-09 foi calibrado com
+19 lojas de referência (moda, beleza, snacks, suplementos, esporte, casa, clube), medidas página a
+página ([references/lojas-referencia.md](references/lojas-referencia.md)). O que se repetiu entre
+elas virou regra aqui; o que foi específico de uma ficou de fora.
 
 ## Os princípios, com o motivo de cada um
 
@@ -39,7 +43,9 @@ virou regra aqui; o que foi específico de uma ficou de fora.
    use um valor ilustrativo **marcado como tal** e ponha na lista "Validar com o cliente".
 2. **Nada de prova social inventada.** Depoimento, avaliação, número de clientes, "mais vendido",
    desconto riscado, especificação técnica e estoque só entram se forem reais e autorizados.
-   Sem eles, a seção não existe — o layout tem que ficar bom sem ela.
+   Sem eles, a seção não existe — o layout tem que ficar bom sem ela. Vale para gatilho de venda:
+   "X pessoas vendo agora", "últimas unidades" e contagem regressiva só com dado real (analytics,
+   estoque da variante, data de fim da campanha). Número que muda a cada recarga é enganação.
 3. **Referência empresta estrutura, nunca identidade.** Da loja de referência se copia a ordem
    das seções, o ritmo, o grid, o comportamento e o movimento. Logo, texto, fotos e tipografia da
    referência não entram. Isso é ética e também é marca: a loja precisa parecer ela mesma.
@@ -74,11 +80,19 @@ Siga as fases na ordem. Cada uma tem um entregável que o usuário consegue apro
   ("fica feio") não convence cliente nenhum; "texto branco no laranja dá 2,98:1, reprova AA" convence.
 - Mapeie o que a plataforma/tema já faz antes de desenhar algo que exige código novo
   (ex.: "avise-me quando voltar ao estoque" precisa de app; o formulário nativo não faz).
+- Liste as mecânicas de venda que **rodam de verdade** hoje: regras de desconto, frete grátis,
+  cashback, brinde, assinatura, app de recomendação, o que o checkout aceita (bump, pós-compra).
+  É isso que o design pode mostrar. Mapa das mecânicas em
+  [references/conversao.md](references/conversao.md).
 
 ### Fase 1 — Direção
 
 - Escolha 2 a 4 referências e anote **o que** vai emprestar de cada uma (ex.: "header que encolhe
   ao rolar", "grid de 3 com a 2ª foto no hover", "PDP com galeria à esquerda e compra fixa").
+  Comece pelo dossiê [references/lojas-referencia.md](references/lojas-referencia.md), que já diz o
+  que emprestar de 19 lojas. Referência nova: `scripts/extrair_referencia.py` captura home,
+  catálogo, PDP, sacola e política em 1440/390 com fontes, raios, cores, ordem das seções,
+  mecânicas e apps.
 - Adapte ao nicho com a tabela de [references/nichos.md](references/nichos.md): cada nicho tem um
   bloco decisivo diferente na PDP, atributos de filtro diferentes e um tipo de prova diferente.
 - Defina a voz em uma frase e o mundo visual em três palavras. Se o usuário já trouxe marca,
@@ -97,10 +111,10 @@ Lista mínima (desktop 1440 + mobile 390; claro e escuro se o escuro fizer parte
 
 | Tela | Estados que precisam existir |
 |---|---|
-| Home | header em repouso e rolado, hero, vitrine, bloco de marca |
+| Home | header em repouso e rolado, hero (desktop e arte mobile própria), vitrine, bloco de marca |
 | Catálogo | com filtros abertos (mobile), vazio, paginação ou "carregar mais" |
 | Produto (PDP) | variante selecionada, esgotado/avise-me, guia de medidas quando couber |
-| Sacola (drawer) | vazia, com itens, frete calculado, erro de CEP |
+| Sacola (drawer) | vazia, com itens, barra de frete (faltando e atingido), recomendação, frete calculado, erro de CEP |
 | Busca | sugestões, sem resultado |
 | Páginas do rodapé | ajuda (medidas, trocas, contato) e políticas com texto real |
 | Cookies (LGPD) | banner e painel de preferências |
@@ -111,7 +125,9 @@ Padrões de cada tela (ordem dos blocos, o que é obrigatório, erros comuns) em
 (descoberta, dado real, moldura clonada, uma seção por chamada, print e checklist), está em
 [references/processo-figma.md](references/processo-figma.md); é obrigatório. A estrutura do
 arquivo, a receita de modo escuro e as armadilhas da Plugin API estão em
-[references/figma.md](references/figma.md).
+[references/figma.md](references/figma.md). Banners (tipos, medidas, arte mobile, geração com IA)
+em [references/banners.md](references/banners.md); onde entra cada mecânica de venda (compre junto,
+kits, brinde, cashback, recomendação na sacola) em [references/conversao.md](references/conversao.md).
 
 ### Fase 4 — Revisão com o cliente
 

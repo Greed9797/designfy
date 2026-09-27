@@ -19,6 +19,23 @@ história (arte, processo, origem) → produtos em destaque em outro formato (du
 (quem, de onde, contato). Sem carrossel de hero de 5 slides; sem grade de ícones genéricos
 ("Frete rápido", "Compra segura") a menos que o dado seja real e específico.
 
+A ordem acima é a da loja de marca/editorial. Loja de varejo com muitas linhas (snacks,
+suplemento, cosmético, esporte) segue outra, medida nas lojas de
+[lojas-referencia.md](lojas-referencia.md):
+
+```
+barra de anúncio → header → hero de promoção (1–3 slides) → faixa de 3–4 benefícios com número
+→ navegação visual (círculos ou tiles: categoria, objetivo, ambiente, personagem)
+→ mais vendidos → banner de lançamento/oferta → vitrine por linha (repetir 2–3x com banner entre)
+→ prova (avaliações, UGC, imprensa) → conteúdo (guia, blog) → newsletter com incentivo → rodapé
+```
+
+- Alterne vitrine e banner: duas vitrines seguidas viram uma parede de cards.
+- Cada vitrine tem nome que vende ("Muita proteína", "Queridinhos da semana"), não "Produtos".
+- Loja pequena, de luxo ou de drop fica com 3–5 seções (Mondepars tem 3). Mais seções não é mais
+  conversão; é mais rolagem.
+- Banners, faixa de benefícios e navegação visual: [banners.md](banners.md).
+
 ## Catálogo
 
 - Cabeçalho: breadcrumb, título, contagem real ("12 peças"), ordenar (usar a ordenação nativa).
@@ -27,6 +44,13 @@ história (arte, processo, origem) → produtos em destaque em outro formato (du
 - Grid 3–4 no desktop, 2 no mobile. 2ª foto no hover (desktop).
 - Adição rápida por tamanho no card é ótima para moda; indisponível aparece riscado/desabilitado.
 - Estados: vazio (com saída), "mostrando X de Y" + paginação ou carregar mais.
+- Topo da coleção: banner baixo (200–320px) com o título, **ou** fileira de subcategorias com foto
+  (Modab, Kylie). Os dois juntos empurram o primeiro produto para fora da dobra.
+- Filtros rápidos em chips acima do grid com o atributo que decide a compra no nicho: benefício da
+  peça ("Não amassa", "Cós alto"), nível de jogo, necessidade do cabelo, "Desconto pix".
+- Card: preço, parcelas e preço PIX quando há desconto real; um selo por vez (Lançamento, -X%,
+  Frete grátis); estrelas só quando existe avaliação.
+- Tile editorial no meio do grid (1 a cada 8–12 cards) quando há campanha que conte algo.
 
 ## Produto (PDP)
 
@@ -42,6 +66,16 @@ nota de frete/prazo → descrição → acordeões (Detalhes aberto; Guia de med
   e-mail; aviso automático de volta ao estoque por variante exige app. Não prometa o que não roda.
 - Âncoras `#guia` e `#trocas` abrem o acordeão correspondente (links do rodapé apontam para elas).
 - O bloco decisivo do nicho recebe mais espaço (ver [nichos.md](nichos.md)).
+- **CEP logo abaixo do botão** ("Consulte prazo e valores"), com o frete real. Visto em 7 das
+  lojas brasileiras analisadas (ver [lojas-referencia.md](lojas-referencia.md)).
+- **Irmãos como variantes**: sabor, tamanho ou cor que são produtos separados aparecem como amostras
+  com foto que levam ao outro produto (Bold, Gymshark, Real Madrid).
+- **Faixa de fatos** com 3 ícones e números logo abaixo da galeria ou do preço (21g proteína · 0
+  açúcar · 12 unidades; 11 horas · 2 dias · garantia vitalícia).
+- **Linha de valor sob o preço**, uma por vez: cashback em R$, preço de membro, preço no PIX.
+- Abaixo da dobra, nesta ordem: conteúdo do produto (por que, como usar, ciência, composição) →
+  compre junto / combina com → avaliações → FAQ → recomendados → vistos recentemente.
+- Mecânicas de ticket médio (kits, compre junto, brinde): [conversao.md](conversao.md).
 
 ## Sacola (drawer)
 
@@ -49,6 +83,19 @@ Itens com variante, +/−, remover; subtotal; calculadora de CEP com frete **rea
 (com mensagem clara quando falha); condições (PIX, parcelas); botão para o checkout. Nunca somar um
 frete fixo chumbado no tema. Se há desconto automático, mostre o valor que a plataforma calculou
 (`total_discount`), nunca recalcule — o total já vem líquido e recalcular desconta duas vezes.
+
+Ordem que as melhores sacolas seguem (Kylie, Stanley, Bold, Modab):
+
+```
+título + contagem → barra de frete grátis (ou brinde por faixa) → itens → brinde escolhido
+→ recomendação com variante inline → cupom → CEP → subtotal + parcelas → Finalizar
+→ Continuar comprando
+```
+
+- A barra usa o total real do carrinho e mostra o estado atingido ("Você desbloqueou frete grátis").
+- Recomendação na sacola adiciona sem sair dela; item com variante tem seletor no próprio card.
+- "Salvar para mais tarde" no lugar de só remover, quando a plataforma guarda a lista.
+- Detalhe e honestidade de cada mecânica: [conversao.md](conversao.md).
 
 ## Busca
 
@@ -70,6 +117,12 @@ numerado 01, 02… à esquerda, conteúdo à direita).
   "talvez já esteja aqui".
 - **Políticas:** o texto vem da plataforma (o lojista edita no admin). Divida pelo `<h2>` para
   aplicar o layout de linhas; não reescreva o texto jurídico no tema.
+- **Regulamentos** de cada mecânica ativa (cashback, assinatura, clube, brinde, cupom) ganham página
+  própria no mesmo template (Bold tem o da assinatura). Oferta que depende de regra aponta para ela.
+- **FAQ como porta de entrada**: perguntas agrupadas (Pagamentos e cashback, Trocas, Entregas) com
+  âncoras que os links do rodapé e da PDP usam (Amaro). Política de 25 mil pixels de texto corrido
+  (visto numa loja grande) é o que não fazer: índice lateral e seções recolhíveis.
+- **Acompanhar pedido** como link no topo ou no rodapé (Stanley), não escondido dentro da conta.
 
 ## Cookies (LGPD)
 
