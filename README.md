@@ -1,4 +1,4 @@
-# Ateliê de Vitrine — guia de design de e-commerce para qualquer IA
+# Designfy — guia de design de e-commerce para qualquer IA
 
 O conteúdo é Markdown puro e não depende de runtime. `SKILL.md` é o ponto de entrada (o
 frontmatter só serve para quem carrega skills; as outras IAs ignoram). As regras moram em um lugar
@@ -12,8 +12,8 @@ cookies LGPD), implementação em Shopify ou site estático, e verificação com
 ## Instalar
 
 ```bash
-git clone https://github.com/Greed9797/atelie-de-vitrine ~/.claude/skills/atelie-de-vitrine   # Claude Code
-git clone https://github.com/Greed9797/atelie-de-vitrine ~/.codex/skills/atelie-de-vitrine    # Codex CLI
+git clone https://github.com/Greed9797/designfy ~/.claude/skills/designfy   # Claude Code
+git clone https://github.com/Greed9797/designfy ~/.codex/skills/designfy    # Codex CLI
 ```
 
 ```
@@ -37,9 +37,9 @@ scripts/extrair_referencia.py captura de loja de referência: estrutura, tokens,
 
 | Agente | Como ligar |
 |---|---|
-| Claude Code | pasta em `~/.claude/skills/atelie-de-vitrine/`; aciona sozinho pela `description` |
+| Claude Code | pasta em `~/.claude/skills/designfy/`; aciona sozinho pela `description` |
 | Codex CLI | copiar a pasta para `~/.codex/skills/` (cópia, não symlink de diretório: alguns loaders não seguem) **ou** no `AGENTS.md` do projeto: `Para trabalho de loja/e-commerce, siga <caminho>/SKILL.md e leia as references que ele indicar.` |
-| Antigravity (Gemini, IDE e `agy`) | registrar em `~/.gemini/config/skills.json`: `{"entries":[{"path":"/caminho/absoluto/da/pasta-pai","include_only":["atelie-de-vitrine"]}]}`. Caminho **absoluto**: com `~` a skill não aparece. Pastas soltas como `~/.gemini/skills/` não são lidas como skill, e symlink de diretório é ignorado. Conferir com `agy -p='liste suas skills'`; na IDE, recarregar a janela para aparecer no `/`. Reforce no **topo** do `~/.gemini/GEMINI.md` com a linha de ponteiro da linha do Codex, porque o Gemini tende a não abrir as references sozinho |
+| Antigravity (Gemini, IDE e `agy`) | registrar em `~/.gemini/config/skills.json`: `{"entries":[{"path":"/caminho/absoluto/da/pasta-pai","include_only":["designfy"]}]}`. Caminho **absoluto**: com `~` a skill não aparece. Pastas soltas como `~/.gemini/skills/` não são lidas como skill, e symlink de diretório é ignorado. Conferir com `agy -p='liste suas skills'`; na IDE, recarregar a janela para aparecer no `/`. Reforce no **topo** do `~/.gemini/GEMINI.md` com a linha de ponteiro da linha do Codex, porque o Gemini tende a não abrir as references sozinho |
 | Cursor / Windsurf / Zed | regra do projeto (`.cursor/rules/ecommerce.mdc` etc.) com a mesma linha de ponteiro acima |
 | ChatGPT / Claude.ai / Gemini (chat) | anexar `SKILL.md` + as references da fase em curso, ou colar `SKILL.md` como instrução do projeto |
 | Qualquer outro | instrução de sistema: "Siga SKILL.md; leia references/<x>.md quando o fluxo mandar." |

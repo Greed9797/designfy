@@ -1,5 +1,5 @@
 ---
-name: atelie-de-vitrine
+name: designfy
 description: >
   Guia de processo e de padrões para desenhar e implementar loja virtual (e-commerce) com
   qualidade de estúdio em qualquer nicho: moda, beleza, casa, plantas, pet, esporte, eletrônicos,
