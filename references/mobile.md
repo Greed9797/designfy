@@ -42,6 +42,8 @@ Aparece em 7 das 19 lojas, **todas brasileiras**, nenhuma internacional:
 
 - 3 a 5 itens, sempre com ícone **e** rótulo, alvo ≥ 44px, contador na sacola.
 - Respeita a área segura do iPhone (`padding-bottom: env(safe-area-inset-bottom)`).
+- Visível desde o primeiro acesso. Tema que só mostra a barra depois de rolar X px some com ela em
+  página curta (sacola, conta, política) justamente onde ela ajuda a sair.
 - O item do meio pode ser a ação da marca ("Compra rápida" na Bold e na Maxme, "Compre pelo
   WhatsApp" na Woly), não mais um link repetido do header.
 - Barra fixa de compra + menu inferior empilhados (Woly) comem ~130px: some com um dos dois na

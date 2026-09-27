@@ -57,6 +57,16 @@
 - **`close` de `<dialog>` não dispara** quando abrir e fechar ocorrem em tarefas diferentes;
   desfaça efeitos observando o atributo `open` com `MutationObserver`.
 - `data-sizes` colide com lazysizes; use outro nome.
+- **`cart.items` vem do mais recente para o mais antigo.** "Último item adicionado" é
+  `cart.items.first`; um `for` que guarda o último da lista pega o mais antigo.
+- **Novas contas de cliente** (`routes.account_login_url` contém `customer_authentication`): o login
+  é por código no domínio da Shopify. Formulário de e-mail e senha no tema perde o que o cliente
+  digitou no redirecionamento; mostre só o botão de entrar. Templates `customers/*` não são usados.
+- **Erro de rede no carrinho** chega com o texto do navegador, em inglês ("Failed to fetch"). Mostre
+  a mensagem do tema e guarde o texto técnico só no console.
+- **Variante esgotada escolhida no seletor** pode não atualizar o `input[name="id"]` (tema só grava
+  variante disponível). Tudo que depende da variante (estoque, preço, prazo) escuta o seletor, não
+  só o id.
 
 ## Tema com mapa
 
