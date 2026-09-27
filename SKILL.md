@@ -15,6 +15,12 @@ description: >
 
 # Guia de design para e-commerce
 
+> **Vai desenhar no Figma?** Leia [references/processo-figma.md](references/processo-figma.md)
+> inteiro antes da primeira escrita e siga os passos na ordem, sem pular. Vale para qualquer
+> modelo (Claude, Gemini, GPT) e qualquer ferramenta (script da Plugin API ou ferramentas
+> granulares tipo talk-to-figma). É esse processo, e não o gosto do modelo, que separa tela de
+> estúdio de tela de template.
+
 Este guia descreve **como** chegar numa loja com cara de marca séria, e não **qual** estética usar.
 A estética sai do nicho, da marca e das referências. O processo, as regras de honestidade e o nível
 de acabamento são os mesmos em qualquer loja.
@@ -99,8 +105,11 @@ Lista mínima (desktop 1440 + mobile 390; claro e escuro se o escuro fizer parte
 | 404 | com saída para o catálogo |
 
 Padrões de cada tela (ordem dos blocos, o que é obrigatório, erros comuns) em
-[references/paginas.md](references/paginas.md). A estrutura do arquivo Figma, as receitas e as
-armadilhas da Plugin API estão em [references/figma.md](references/figma.md).
+[references/paginas.md](references/paginas.md). **Como** montar cada tela no Figma, passo a passo
+(descoberta, dado real, moldura clonada, uma seção por chamada, print e checklist), está em
+[references/processo-figma.md](references/processo-figma.md); é obrigatório. A estrutura do
+arquivo, a receita de modo escuro e as armadilhas da Plugin API estão em
+[references/figma.md](references/figma.md).
 
 ### Fase 4 — Revisão com o cliente
 
@@ -147,3 +156,17 @@ Elas valem em qualquer projeto e não dependem do usuário lembrar:
 - "Deixa bonito" numa loja existente: faça a auditoria da Fase 0 primeiro; o problema costuma
   ser sistema (5 fontes, 4 azuis) e não uma tela.
 - Sem Figma: desenhe direto em HTML com o mesmo design system e trate o preview como o Figma.
+
+## Se você não é o Claude (Gemini, GPT, outro)
+
+As regras são as mesmas; o que muda é o hábito de pular leitura. Então:
+
+1. Leia `SKILL.md` e as references da fase em curso **antes** de agir. Não resuma nem adapte
+   por conta própria: siga o texto.
+2. No Figma, a ficha da seção 1 de `processo-figma.md` vem preenchida na sua primeira resposta
+   de trabalho. Sem a ficha, não há escrita.
+3. Depois de cada seção montada, mostre o print e o checklist da seção 5 marcado. "Ficou ótimo"
+   sem print não conta.
+4. Na dúvida entre inventar e perguntar, marque como ilustrativo e ponha na lista "Validar com o
+   cliente". Nunca invente preço, prova social nem política.
+

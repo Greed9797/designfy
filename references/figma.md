@@ -1,5 +1,9 @@
 # Figma para loja
 
+O passo a passo de montagem de tela (descoberta, dado real, moldura, uma seção por chamada,
+print e checklist) está em [processo-figma.md](processo-figma.md). Leia ele primeiro; este
+arquivo complementa com a estrutura do arquivo e as armadilhas.
+
 Antes de escrever na Plugin API, leia a documentação de Plugin API do seu agente (no Claude Code, as skills `figma-use` e `figma-generate-design` para
 telas inteiras). Este arquivo traz só o que é específico de loja e as armadilhas que já custaram
 rodadas.

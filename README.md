@@ -23,6 +23,7 @@ references/nichos.md
 references/design-system.md
 references/paginas.md
 references/figma.md
+references/processo-figma.md    passo a passo de montagem no Figma (obrigatório para desenhar)
 references/shopify.md
 references/qa.md
 scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
@@ -34,9 +35,10 @@ scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
 |---|---|
 | Claude Code | pasta em `~/.claude/skills/atelie-de-vitrine/`; aciona sozinho pela `description` |
 | Codex CLI | copiar a pasta para `~/.codex/skills/` (cópia, não symlink de diretório: alguns loaders não seguem) **ou** no `AGENTS.md` do projeto: `Para trabalho de loja/e-commerce, siga <caminho>/SKILL.md e leia as references que ele indicar.` |
+| Antigravity (Gemini) | pasta em `~/.gemini/skills/atelie-de-vitrine/` (ou `~/.gemini/antigravity/skills/`); aciona pela `description`. Reforce no `~/.gemini/GEMINI.md` com a mesma linha de ponteiro da linha do Codex, porque o Gemini tende a não abrir as references sozinho |
 | Cursor / Windsurf / Zed | regra do projeto (`.cursor/rules/ecommerce.mdc` etc.) com a mesma linha de ponteiro acima |
 | ChatGPT / Claude.ai / Gemini (chat) | anexar `SKILL.md` + as references da fase em curso, ou colar `SKILL.md` como instrução do projeto |
 | Qualquer outro | instrução de sistema: "Siga SKILL.md; leia references/<x>.md quando o fluxo mandar." |
 
 Em chat sem acesso a arquivos, o mínimo que mantém a qualidade é `SKILL.md` + `paginas.md` +
-`design-system.md`. As partes de Figma, Shopify e QA só fazem sentido para agente com ferramentas.
+`design-system.md` (e `processo-figma.md` se houver Figma). As partes de Figma, Shopify e QA só fazem sentido para agente com ferramentas.
