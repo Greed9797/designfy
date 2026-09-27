@@ -35,7 +35,7 @@ scripts/qa_loja.py            varredura Playwright (python3 + Chrome)
 |---|---|
 | Claude Code | pasta em `~/.claude/skills/atelie-de-vitrine/`; aciona sozinho pela `description` |
 | Codex CLI | copiar a pasta para `~/.codex/skills/` (cópia, não symlink de diretório: alguns loaders não seguem) **ou** no `AGENTS.md` do projeto: `Para trabalho de loja/e-commerce, siga <caminho>/SKILL.md e leia as references que ele indicar.` |
-| Antigravity (Gemini) | pasta em `~/.gemini/skills/atelie-de-vitrine/` (ou `~/.gemini/antigravity/skills/`); aciona pela `description`. Reforce no `~/.gemini/GEMINI.md` com a mesma linha de ponteiro da linha do Codex, porque o Gemini tende a não abrir as references sozinho |
+| Antigravity (Gemini) | **cópia** (não symlink: o loader ignora link de diretório) em `~/.gemini/skills/`, `~/.gemini/antigravity/skills/` e `~/.gemini/antigravity-cli/skills/`: `rsync -a --delete --exclude .git <esta pasta>/ ~/.gemini/skills/atelie-de-vitrine/` (idem nas outras duas; repetir após cada atualização). Conferir com `agy -p='liste suas skills'`. Reforce no **topo** do `~/.gemini/GEMINI.md` com a mesma linha de ponteiro da linha do Codex (no fim do arquivo ela passa despercebida), porque o Gemini tende a não abrir as references sozinho |
 | Cursor / Windsurf / Zed | regra do projeto (`.cursor/rules/ecommerce.mdc` etc.) com a mesma linha de ponteiro acima |
 | ChatGPT / Claude.ai / Gemini (chat) | anexar `SKILL.md` + as references da fase em curso, ou colar `SKILL.md` como instrução do projeto |
 | Qualquer outro | instrução de sistema: "Siga SKILL.md; leia references/<x>.md quando o fluxo mandar." |
