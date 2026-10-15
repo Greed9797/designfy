@@ -15,6 +15,7 @@ fonte padrão e texto inventado.
 |---|---|---|
 | **A — script** | existe uma ferramenta que executa JavaScript da Plugin API (`use_figma` do MCP oficial, ou parecida) | um script por seção, seguindo a seção 4A |
 | **B — ferramentas granulares** | ferramentas separadas tipo `create_frame`, `create_text`, `clone_node`, `set_fill_color`, `set_layout_mode` (talk-to-figma / cursor-talk-to-figma) | **clonar e editar**, seguindo a seção 4B |
+| **C — FigCraft** | ferramentas `run_command`, `batch`, `create_node`, `inspect_document` (MCP do FigCraft, editor open source no formato do Figma) | comandos JSON, um lote (`batch`) por seção, seguindo a seção 4C |
 | **Só leitura** | só há `get_design_context`, `get_screenshot`, Framelink e similares | não desenhe; descreva a tela e peça uma ferramenta de escrita |
 
 No modo B há duas armadilhas que sozinhas explicam a maior parte do resultado feio:
@@ -57,6 +58,9 @@ Imagens já no arquivo: <nó> <imageHash> (página 99 Assets)
   pelas instâncias de uma tela existente.
 - Modo B: `get_document_info`, `get_local_components`, `get_styles`,
   `scan_nodes_by_types` (TEXT e INSTANCE numa tela pronta), `get_instance_overrides`.
+- Modo C: `inspect_document {depth: 1, allPages: true}` (páginas e estilos), `run_command`
+  com `variable.list`, `component.list` e `component.properties {id}` (do conjunto), e
+  `text.fonts {family}` para cada fonte da marca (portão da seção 4C).
 - **Anote o tipo de cada propriedade.** Mandar texto para uma propriedade BOOLEAN dá
   "incompatible type"; a chave inclui o sufixo (`Ver mais#15:6`), e o nome sem sufixo não funciona.
 - Se o arquivo não tem design system, pare aqui e faça a Fase 2 do `SKILL.md` primeiro.
@@ -68,8 +72,8 @@ Imagens já no arquivo: <nó> <imageHash> (página 99 Assets)
   fotos, textos de política. Dá para ler do site no ar (Playwright ou navegador), da API da
   plataforma ou de um export. Guarde num JSON; é ele que alimenta os scripts.
 - Imagens: suba **uma vez** (JPG ou PNG; WebP ganha hash mas não renderiza) em retângulos na
-  página `99 Assets`. Depois reaproveite o `imageHash` (modo A) ou chame `set_image_fill` com o
-  caminho do arquivo local (modo B).
+  página `99 Assets`. Depois reaproveite o `imageHash` (modo A), chame `set_image_fill` com o
+  caminho do arquivo local (modo B) ou `image.place` com o caminho (modo C).
 - Dado que falta ganha valor ilustrativo **marcado** e vai para a lista "Validar com o cliente".
   Nunca "Produto 1 · R$ 99,90", nunca lorem ipsum, nunca estrelas ou depoimentos inventados.
 
@@ -197,10 +201,102 @@ return { criados, slot: SLOT };
 6. **Imagem**: `set_image_fill` com `imagePath` do arquivo local (JPG/PNG).
 7. **Print**: `export_node_as_image` na seção inteira depois de montar (seção 5).
 
+### 4C. Modo FigCraft
+
+[FigCraft](https://github.com/storytold/figcraft) é um editor open source no formato do Figma,
+em Rust, com MCP próprio. O arquivo fica no disco, e não na nuvem. As regras abaixo foram medidas
+na v0.6.0 (2026-10-15). Ainda é alfa: fixe a versão e confira tudo por print.
+
+**Ligar.**
+
+- `figcraft-cli mcp` roda sem janela; é o padrão para montar.
+- Para ver as mudanças ao vivo, abra o app com `figcraft --control 7979` e use
+  `figcraft-cli mcp --attach 7979`. A janela precisa estar visível: escondida, as chamadas
+  esperam e expiram.
+- Ferramentas: `run_command`, `batch`, `create_node`, `set_properties`, `get_node`,
+  `inspect_document`, `screenshot`, `export`, `open_file` e `save_file`.
+  - `run_command` executa qualquer um dos cerca de 550 comandos.
+  - `list_commands {filter}` mostra os parâmetros de cada um.
+- Guarde o arquivo do projeto no repositório, em `design/<projeto>.figcraft` (um zip com
+  `document.json`).
+
+**Fontes primeiro (portão).** Antes do design system, rode `text.fonts {family}` para cada fonte
+da marca e confira que cada peso usado aparece na lista.
+
+- Fonte que falta **não dá erro**: o texto guarda o nome da fonte e é desenhado em Inter.
+- O FigCraft lê as fontes instaladas no sistema (no macOS, `~/Library/Fonts`), inclusive fonte
+  variável com os pesos nomeados. Instale as do Google Fonts antes de montar.
+- Na 0.6.0, a família que já vem embutida no FigCraft ganha da instalada.
+  - Poppins só tem Regular, Italic e Bold; Inter não tem Medium.
+  - Por isso Medium e SemiBold dessas duas saem em Bold.
+  - Se a marca depende desses pesos, avise antes de montar e anote em "Validar com o cliente".
+
+**Montar.** Valem as regras de layout da seção 4. Faça um lote (`batch`) por seção:
+
+- `batch` é tudo ou nada: um passo inválido desfaz o lote inteiro. Depois de um erro, nada ficou
+  escrito; corrija e repita.
+- O lote deve ser seguro para repetir. Antes de rodá-lo, faça `get_node {id: <slot>, depth: 1}`
+  e não rode se já existe filho com o nome da seção.
+- Dentro do lote, use ids que já existem. Crie o contêiner antes, com `create_node` (que devolve
+  o `id`), e preencha-o no lote seguinte.
+- **Texto:** `create_node {type: 'text', parent, text}` nasce em Inter 12.
+  - Aplique `style.apply {ids, style}` no mesmo lote.
+  - Texto que quebra linha leva `sizingH: 'fill'` e `textAutoResize: 'height'`.
+- **Auto-layout:** pelas props `layout`, `gap`, `padding`, `mainAlign`, `crossAlign`, `sizingH`
+  e `sizingV` (`fixed | hug | fill`).
+  - Filho FILL dentro de pai HUG não colapsa: o pai vira FIXED naquele eixo.
+  - Mesmo assim, feche o quadro raiz com `sizingH: 'fixed'` e largura 1440 ou 390.
+- **Cor:** `variable.bind {ids, field: 'fill' | 'stroke', variable}`.
+  - Diferente do Figma, a opacidade da cor ligada a variável é mantida.
+  - Um scrim pode ser uma cor ligada com `opacity` no próprio preenchimento.
+- **Modo de variável:** `variable.setMode {ids, collection, mode}`.
+- **Componente:**
+  1. Transforme o frame com `component.create`.
+  2. Crie a propriedade de texto com
+     `component.addProperty {id, name, type: 'text', default, layer}`.
+  3. Variantes são componentes chamados `Prop=Valor`, juntados com
+     `component.combineVariants {ids}`.
+  4. Instância: `instance.create {component: <conjunto>, parent}` e depois
+     `instance.setProperties {ids, properties}`. O texto sobrescrito sobrevive à troca de
+     variante.
+- **Foto:** `image.place {path, parent, width, height, mode: 'fill'}`, com JPG ou PNG local.
+- **Ícone:** importe o SVG do Lucide com `file.import {path, x, y}`. Ele vira um vetor editável,
+  com o traço certo.
+
+**Ver.** Use `screenshot {ids, scale: 1}`, que responde em fração de segundo. Fora do MCP, use
+`figcraft-cli render` ou `figcraft-cli export`.
+
+**Entregar.**
+
+- **Ao cliente:** um PDF com um quadro por página (`file.exportFramesPdf {page, path}`), ou PNG,
+  mais o preview navegável.
+  - O FigCraft não tem contas.
+  - Não use o compartilhamento online padrão com dado de cliente: o servidor é público, guarda o
+    arquivo sem criptografia e apaga depois de 30 dias sem uso. Só um `figcraft-server` próprio
+    serve para isso.
+- **Para código:**
+  - `variable.export {format: 'css'}` devolve os tokens: `:root` com o modo padrão e
+    `[data-<coleção>="<modo>"]` com cada outro modo.
+  - `inspect.code {id, language: 'html'}` devolve HTML e CSS com `var(--token)`.
+  - A classe sai do nome da camada sem os acentos ("Seção" vira `se-o`). Renomeie as camadas que
+    vão virar classe.
+- **De volta ao Figma:** `export {format: 'fig'}` é experimental. Não prometa ida e volta.
+
+**Trazer um arquivo que está no Figma.**
+
+- **`.fig` com `open_file`:** gere o arquivo no Figma em Arquivo › Salvar cópia local.
+  - Vêm as páginas, as variáveis com modos, os estilos, os componentes e as instâncias.
+  - Ícones de traço podem sair deformados. Confira por print e troque-os pelo SVG do conjunto.
+- **JSON da API REST:** `GET /v1/files/:key?geometry=paths`, com as imagens em
+  `images/<imageRef>.png`.
+  - Desenha os ícones certos.
+  - A API de variáveis só responde no plano Enterprise. Sem ela, as ligações de cor se perdem.
+  - Pelo endpoint de nós, as instâncias viram frames.
+
 ## 5. Olhe o que fez — print depois de cada composição
 
-Tire um print da seção ou da tela (modo A: `get_screenshot`; modo B: `export_node_as_image`) e
-procure, nesta ordem:
+Tire um print da seção ou da tela (modo A: `get_screenshot`; modo B: `export_node_as_image`;
+modo C: `screenshot`) e procure, nesta ordem:
 
 - [ ] Rótulo curto quebrando em duas linhas ou cortado ("Quantida-de", "Frete grá…").
 - [ ] Texto padrão do componente sobrando ("Title", "Button", "Label").
@@ -257,6 +353,7 @@ Responda sim a tudo, com o print na mão:
 | Sintoma | Causa | Regra que evita |
 |---|---|---|
 | Tudo em Inter, tamanhos aleatórios | texto criado do zero, sem estilo | 4.9, 4B.2 |
+| Estilo de texto certo e a tela em Inter | fonte da marca não instalada; o FigCraft troca sem erro | 4C (portão de fontes) |
 | Cores "quase" da marca, cinco cinzas | hex digitado a olho | 4.9, 4B.5 |
 | Elementos sobrepostos ou tortos | posição absoluta em vez de auto-layout | 4.1 |
 | Texto virou um fio vertical | FILL sem `textAutoResize = 'HEIGHT'` | 4.4 |

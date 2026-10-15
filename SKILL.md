@@ -21,8 +21,8 @@ description: >
 
 > **Vai desenhar no Figma?** Leia [references/processo-figma.md](references/processo-figma.md)
 > inteiro antes da primeira escrita e siga os passos na ordem, sem pular. Vale para qualquer
-> modelo (Claude, Gemini, GPT) e qualquer ferramenta (script da Plugin API ou ferramentas
-> granulares tipo talk-to-figma). É esse processo, e não o gosto do modelo, que separa tela de
+> modelo (Claude, Gemini, GPT) e qualquer ferramenta (script da Plugin API, ferramentas
+> granulares tipo talk-to-figma ou o FigCraft, editor open source com MCP). É esse processo, e não o gosto do modelo, que separa tela de
 > estúdio de tela de template.
 
 Este guia descreve **como** chegar numa loja com cara de marca séria, e não **qual** estética usar.

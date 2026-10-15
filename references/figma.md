@@ -39,8 +39,9 @@ vez de apagada, para a conversa com o cliente ter histórico.
 
 ## Armadilhas da Plugin API
 
-- **Paint vinculada a variável perde a opacidade.** Atribuir `opacity` antes, depois ou via spread
-  não funciona: lê de volta 1. Scrim = fill sólido vinculado + `node.opacity`; linha translúcida =
+- **Paint vinculada a variável perde a opacidade** (no Figma; no FigCraft ela fica, ver
+  `processo-figma.md` 4C). Atribuir `opacity` antes, depois ou via spread não funciona: lê de
+  volta 1. Scrim = fill sólido vinculado + `node.opacity`; linha translúcida =
   token sólido dedicado.
 - **Filho de instância não aceita `x`** ("relative-transform"). Se o ajuste é estrutural, corrija
   o componente principal e reaplique as instâncias. **Não** desanexe as instâncias para contornar:
