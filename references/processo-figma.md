@@ -209,10 +209,16 @@ na v0.6.0 (2026-10-15). Ainda é alfa: fixe a versão e confira tudo por print.
 
 **Ligar.**
 
-- `figcraft-cli mcp` roda sem janela; é o padrão para montar.
-- Para ver as mudanças ao vivo, abra o app com `figcraft --control 7979` e use
-  `figcraft-cli mcp --attach 7979`. A janela precisa estar visível: escondida, as chamadas
-  esperam e expiram.
+- Registre `figcraft-cli mcp` como servidor MCP stdio no agente. Ele roda sem janela, sem app
+  aberto e sem plugin. Funciona igual em Claude Code, Claude Desktop, Codex, Cursor, Gemini e
+  OpenCode. Para olhar o resultado, use `screenshot`, nunca computer use.
+- Não use o agente no modo anexado ao app (`--attach`). No macOS, o app só atende as chamadas
+  enquanto a janela está sendo desenhada; coberta por outra janela, cada chamada espera 60 s e
+  falha.
+- **O documento sem janela vive só durante a sessão do agente.**
+  - Comece com `open_file` do arquivo do projeto, ou crie e salve um logo no início.
+  - Rode `save_file` ao fim de cada lote.
+  - Para uma pessoa ver o trabalho, abra o `.figcraft` salvo no app.
 - Ferramentas: `run_command`, `batch`, `create_node`, `set_properties`, `get_node`,
   `inspect_document`, `screenshot`, `export`, `open_file` e `save_file`.
   - `run_command` executa qualquer um dos cerca de 550 comandos.
