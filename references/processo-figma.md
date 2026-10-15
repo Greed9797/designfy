@@ -230,6 +230,10 @@ da marca e confira que cada peso usado aparece na lista.
   - Poppins só tem Regular, Italic e Bold; Inter não tem Medium.
   - Por isso Medium e SemiBold dessas duas saem em Bold.
   - Se a marca depende desses pesos, avise antes de montar e anote em "Validar com o cliente".
+  - Contorno testado: compilar o CLI a partir do código-fonte sem a pasta irmã `craft-fonts`
+    (`cargo build --release -p figcraft-cli`, cerca de 2 min). Sem fontes embutidas, ele lê as
+    instaladas por inteiro: Poppins e Inter com 18 estilos cada. O app desktop do release
+    continua com a fonte embutida.
 
 **Montar.** Valem as regras de layout da seção 4. Faça um lote (`batch`) por seção:
 
