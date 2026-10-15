@@ -210,8 +210,8 @@ na v0.6.0 (2026-10-15). Ainda é alfa: fixe a versão e confira tudo por print.
 **Ligar.**
 
 - Registre `figcraft-cli mcp` como servidor MCP stdio no agente. Ele roda sem janela, sem app
-  aberto e sem plugin. Funciona igual em Claude Code, Claude Desktop, Codex, Cursor, Gemini e
-  OpenCode. Para olhar o resultado, use `screenshot`, nunca computer use.
+  aberto e sem plugin. Serve a qualquer agente com MCP; houve chamada real testada em Claude
+  Code, Codex e OpenCode. Para olhar o resultado, use `screenshot`, nunca computer use.
 - Não use o agente no modo anexado ao app (`--attach`). No macOS, o app só atende as chamadas
   enquanto a janela está sendo desenhada; coberta por outra janela, cada chamada espera 60 s e
   falha.
